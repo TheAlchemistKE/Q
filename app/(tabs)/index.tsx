@@ -1,70 +1,93 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import React, { useState } from 'react';
+import {View, Text, StyleSheet, TouchableOpacity, Dimensions, SafeAreaView} from 'react-native';
+import PostBottomSheet from "@/components/PostBottomSheet";
+import PostList from "@/components/PostList";
+import AppHeader from "@/components/navigation/AppHeader";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+const { height, width } = Dimensions.get('window');
 
-export default function HomeScreen() {
+const HomeScreen: React.FC = () => {
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <SafeAreaView style={styles.container}>
+
+      {/* Custom App Header */}
+      <AppHeader
+        title="Home"
+        leftIcon="arrow-left" // Back button
+        leftAction={() => console.log('Back Pressed')}
+        rightIcons={[
+          { iconName: 'settings', action: () => console.log('Settings Pressed') },
+          { iconName: 'bell', action: () => console.log('Notifications Pressed') },
+        ]}
+      />
+
+      {/* Post Feed */}
+      <PostList />
+
+      {/* Floating Action Button (Create Post) */}
+
+
+      {/* Post Bottom Sheet for creating posts */}
+      {/* @ts-ignore*/}
+      <PostBottomSheet onClose={() => setIsBottomSheetOpen(false)} isOpen={isBottomSheetOpen} />
+
+      {/*/!* Bottom Navigation Bar *!/*/}
+      {/*<View style={styles.bottomBar}>*/}
+      {/*  <TouchableOpacity>*/}
+      {/*    <Feather name="home" size={24} color="#fff" />*/}
+      {/*  </TouchableOpacity>*/}
+      {/*  <TouchableOpacity>*/}
+      {/*    <Feather name="search" size={24} color="#fff" />*/}
+      {/*  </TouchableOpacity>*/}
+      {/*  <TouchableOpacity>*/}
+      {/*    <Feather name="bell" size={24} color="#fff" />*/}
+      {/*  </TouchableOpacity>*/}
+      {/*  <TouchableOpacity>*/}
+      {/*    <Feather name="mail" size={24} color="#fff" />*/}
+      {/*  </TouchableOpacity>*/}
+      {/*</View>*/}
+    </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  container: {
+    flex: 1,
+    backgroundColor: '#fff', // Dark background to resemble X
+    width: '100%',
+    height: height,
+  },
+  topBar: {
+    height: 60,
+    width: '100%',
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    gap: 8,
+    paddingHorizontal: 20,
+    backgroundColor: '#000',
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#333', // Slightly visible border
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  logo: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#fff', // White text for the logo
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
+
+  bottomBar: {
     position: 'absolute',
+    bottom: 0,
+    width: width,
+    height: 60,
+    backgroundColor: '#000', // Dark background for bottom navigation
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    borderTopWidth: 0.5,
+    borderTopColor: '#333',
   },
 });
+
+export default HomeScreen;
