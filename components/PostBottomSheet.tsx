@@ -8,14 +8,17 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 const PostBottomSheet: React.FC<{ onClose: () => void; }> = ({ onClose }) => {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const [postContent, setPostContent] = React.useState<string>('');
-  const [selectedImage, setSelectedImage] = React.useState<any>(null);
+  const [selectedImage, setSelectedImage] = React.useState<string | null>(null);
+  const [image, setImage] = React.useState<any>(null);
   const [userId, setUserId] = React.useState<string | null>(null);
+  const [name, setName] = React.useState<string | null>(null);
 
   useEffect(() => {
     const fetchUserId = async () => {
       try {
         const user = await account.get(); // Get the currently logged in user
         setUserId(user.$id); // Set the userId state
+        setName(user.name)
       } catch (error) {
         console.error('Error fetching user ID:', error);
       }
@@ -41,15 +44,16 @@ const PostBottomSheet: React.FC<{ onClose: () => void; }> = ({ onClose }) => {
     }
 
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
 
     if (!result.canceled) {
-      console.log(result.assets[0]); // Log the file received from the image picker
-      setSelectedImage(result.assets[0]);
+      console.log(result.assets[0]);
+      setImage(result.assets[0]);
+      setSelectedImage(result.assets[0].uri);
     }
   };
 
@@ -58,13 +62,14 @@ const PostBottomSheet: React.FC<{ onClose: () => void; }> = ({ onClose }) => {
       let imageUrl = null;
       if (selectedImage) {
         // Upload the image directly to Appwrite storage
-        const uploadedFile = await uploadImage(selectedImage); // Pass the file URI directly
-        imageUrl = uploadedFile?.$id; // Use the returned ID or URL of the uploaded file
+        const uploadedFile = await uploadImage(image);
+        console.log(uploadedFile);
+        imageUrl = uploadedFile?.$id;
       }
 
       // Create the post with content, image URL, and user ID
       if (userId) {
-        await createPost(postContent, imageUrl, userId);
+        await createPost(postContent, imageUrl, userId, name!, image.mimeType);
       } else {
         alert('User ID is required to create a post.');
       }
@@ -100,7 +105,7 @@ const PostBottomSheet: React.FC<{ onClose: () => void; }> = ({ onClose }) => {
             onChangeText={setPostContent}
           />
           {selectedImage && (
-            <Image source={{ uri: selectedImage.uri }} style={styles.imagePreview} />
+            <Image source={{ uri: selectedImage }} style={styles.imagePreview} />
           )}
           <Button title="Attach Image" onPress={pickImage} />
           <Button title="Post" onPress={handlePost} />
