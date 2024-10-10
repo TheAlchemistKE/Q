@@ -1,21 +1,34 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Dimensions, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Avatar} from 'tamagui';
 import {Feather} from '@expo/vector-icons';
 import {ResizeMode, Video} from 'expo-av';
+import {storage} from "@/utils/Appwrite";
 
 const { width } = Dimensions.get('window');
 
 type PostCardProps = {
   content: string;
   mediaUri?: string;
-  mediaType?: 'image' | 'video';
+  mediaType?: any;
   userId: string;
   username: string; // Add a username for the user
   userAvatar: string; // URL to the user's avatar image
 };
 
 const PostCard: React.FC<PostCardProps> = ({ content, mediaUri, mediaType, userId, username, userAvatar }) => {
+  const [media, setMedia] = useState<string>('')
+  const [status, setStatus] = useState({});
+
+  useEffect(() => {
+    const fetchMedia = async () => {
+      const url = storage.getFileView('q_media', mediaUri!)
+      setMedia(url.toString())
+    }
+    fetchMedia()
+  }, []);
+
+  console.log(media);
   return (
     <View style={styles.card}>
       <View style={styles.header}>
@@ -29,21 +42,17 @@ const PostCard: React.FC<PostCardProps> = ({ content, mediaUri, mediaType, userI
       </View>
 
       <Text style={styles.content}>{content}</Text>
-
-      {/* Render media based on mediaType */}
-      {mediaUri && mediaType === 'image' && (
-        <Image source={{ uri: mediaUri }} style={styles.media} />
-      )}
-
-      {mediaUri && mediaType === 'video' && (
-        <Video
-          source={{ uri: mediaUri }}
-          style={styles.media}
-          useNativeControls
-          resizeMode={ResizeMode.CONTAIN}
-          isLooping
-        />
-      )}
+      { mediaType === 'image/jpeg' ? (
+          <Image source={{ uri: media }} style={styles.media}/>
+      ): (<Video
+              source={{ uri: media }}
+              style={styles.media}
+              resizeMode={ResizeMode.CONTAIN}
+              shouldPlay={false}
+              useNativeControls
+              onPlaybackStatusUpdate={status => setStatus(() => status)}
+              isLooping
+            />)}
 
       <View style={styles.actions}>
         <TouchableOpacity>

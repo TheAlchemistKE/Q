@@ -14,7 +14,7 @@ const TabsLayout: React.FC = () => {
                   <Feather name="home" size={24} color={color} focused={focused} />
               )}}
       />
-        <Tabs.Screen name="forum" options={{
+        <Tabs.Screen name="community" options={{
               title: 'Community',
               tabBarIcon: ({ color, focused }) => (
                    <MaterialCommunityIcons name="account-group" size={24} color={color} focused={focused} />
