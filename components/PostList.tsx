@@ -40,11 +40,11 @@ const PostList: React.FC = () => {
       renderItem={({ item }) => (
         <PostCard
             content={item.content}
-            mediaUri={item.mediaUri}
-            mediaType={item.mediaType} // Ensure mediaType is passed
+            mediaUri={item.media}
+            mediaType={item.media_type}
             userId={item.userId}
-            username={item.username} // Pass username
-            userAvatar={item.userAvatar} // Pass user avatar
+            username={item.username}
+            userAvatar={item.userAvatar}
           />
       )}
       refreshControl={
