@@ -1,5 +1,3 @@
-// app/posts/comments.tsx
-
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, Button, TextInput } from 'react-native';
 import { useRouter } from 'expo-router';
