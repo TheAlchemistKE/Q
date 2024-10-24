@@ -67,7 +67,7 @@
     "react-native-url-polyfill": "^2.0.0",
     "react-native-web": "^0.19.12",
     "stream-chat": "^8.40.9",
-    "stream-chat-expo": "^5.39.1",
+    "stream-chat-expo": "^5.39.4",
     "stream-chat-react-native": "^5.39.1",
     "tamagui": "^1.112.22",
     "uuid": "^10.0.0"

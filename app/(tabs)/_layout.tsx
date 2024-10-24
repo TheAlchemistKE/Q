@@ -24,7 +24,7 @@ const TabsLayout: React.FC = () => {
               tabBarIcon: ({ color, focused }) => (
                   <Feather name="search" size={24} color={color} focused={focused} />
               )}} />
-        <Tabs.Screen name="chat" options={{
+        <Tabs.Screen name="chat/index" options={{
               title: 'Messages',
               tabBarIcon: ({ color, focused }) => (
                   <Feather name="mail" size={24} color={color} focused={focused} />
