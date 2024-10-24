@@ -10788,17 +10788,35 @@ stream-buffers@2.2.x, stream-buffers@~2.2.0:
   resolved "https://registry.yarnpkg.com/stream-buffers/-/stream-buffers-2.2.0.tgz#91d5f5130d1cef96dcfa7f726945188741d09ee4"
   integrity sha512-uyQK/mx5QjHun80FLJTfaWE7JtwfRMKBLkMne6udYOmvH0CawotVa7TfgYHzAnpphn4+TweIx1QKMnRIbipmUg==
 
-stream-chat-expo@^5.39.1:
-  version "5.39.1"
-  resolved "https://registry.yarnpkg.com/stream-chat-expo/-/stream-chat-expo-5.39.1.tgz#37cac3f625a8137dc858fed12ce4d08ee778b325"
-  integrity sha512-rQrL6x3VH7qAdAEfeCnTtX5/5HWDyZWBFq15Sj22Wa5JTEvnhOkw07R6nQiE3fx21XaRb2P0Dn/IfutNklCHXg==
+stream-chat-expo@^5.39.4:
+  version "5.39.4"
+  resolved "https://registry.yarnpkg.com/stream-chat-expo/-/stream-chat-expo-5.39.4.tgz#a4350c9fba262c3e9c78dd87bbd5e037d8834eb7"
+  integrity sha512-Qc2dMi+Xw+RZjAo7I9ncSNMHwC+BaTUpdCDQRHlVEiKBhJJdo5iwQ6a2JKxI8TN7jqjIghxrLWEV5irFNP9Plg==
   dependencies:
-    stream-chat-react-native-core "5.39.1"
+    stream-chat-react-native-core "5.39.4"
 
 stream-chat-react-native-core@5.39.1:
   version "5.39.1"
   resolved "https://registry.yarnpkg.com/stream-chat-react-native-core/-/stream-chat-react-native-core-5.39.1.tgz#ce6060d921b618446e54fc68402f4edf30f0c068"
   integrity sha512-iXUqiBIAb0wj6jDH9zNIosYnwR0azCRTnKchxqo/YNGoMwQB/BqZl+ucyLlYBsbrtIYrmiLe2Tj5ufNe72u5Gg==
+  dependencies:
+    "@gorhom/bottom-sheet" "^4.6.4"
+    dayjs "1.10.5"
+    emoji-regex "^10.3.0"
+    i18next "^21.6.14"
+    intl-pluralrules "^2.0.1"
+    linkifyjs "^4.1.1"
+    lodash-es "4.17.21"
+    mime-types "^2.1.34"
+    path "0.12.7"
+    react-native-markdown-package "1.8.2"
+    react-native-url-polyfill "^1.3.0"
+    stream-chat "8.40.8"
+
+stream-chat-react-native-core@5.39.4:
+  version "5.39.4"
+  resolved "https://registry.yarnpkg.com/stream-chat-react-native-core/-/stream-chat-react-native-core-5.39.4.tgz#39db32070ccf95aa32ceb2fec96f777c27f0a8d2"
+  integrity sha512-XKrPnIKVVOz9mi4/oVkMX8zD8JnqDIxjiqhYZelT4Hb2qMrhvpmCmxq60Fz++JZf7lFgtnoAx+oec1ns4g0VWg==
   dependencies:
     "@gorhom/bottom-sheet" "^4.6.4"
     dayjs "1.10.5"
